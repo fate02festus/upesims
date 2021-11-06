@@ -8,7 +8,7 @@ foreach($qry->fetch_array() as $k => $val){
 }
 ?>
 <div class="container-fluid">
-	<form action="" id="manage-tenant">
+	<form action="" id="manage-category">
 		
 		<div class="form-group row">
 			<div class="col-md-4">
@@ -57,7 +57,7 @@ foreach($qry->fetch_array() as $k => $val){
 	</form>
 </div>
 <script>
-	$('#manage-tenant').submit(function(e){
+	$('#manage-category').submit(function(e){
 		e.preventDefault()
 		start_load()
 		$('#msg').html('')

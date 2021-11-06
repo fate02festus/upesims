@@ -200,12 +200,8 @@ Class Action {
 				}
 	}
 
-	
 	function save_withdraw(){
 		extract($_POST);
-		if(intval('$balance')<'$amount')
-			return 2;
-		
 		$date=date();
 		$data = " customer = '$banker' ";
 		$data .= ", accno = '$accno' ";
@@ -214,8 +210,11 @@ Class Action {
 		$data .= ", date = '$date' ";
 		$data .= ", trans_type = 'WIT' ";
 
-//$save = $this->db->query("INSERT INTO `account_trans`(`customer`, `accno`, `acc_type`, `date`, `amount`, `trans_type`) VALUES ('$accno','$bacc','$acc_type','$date','$amount','DEP')");
 
+		$qq = mysqli_query($conn, "select balance from banker_account  where accno='$accno'") or die(mysqli_error());
+		$ff = mysqli_fetch_array($qq);
+		if(intval($qq)<intval($amount))
+			return 2;
 		$save = $this->db->query("INSERT INTO account_trans set $data");
 				$save1 = $this->db->query("update banker_account set balance= balance-'$amount' where accno = '$accno'");
 			
@@ -224,22 +223,21 @@ Class Action {
 	}
 	function money_trans(){
 		extract($_POST);
-		if(intval('$balance')<'$amount')
-			return 2;
-		
 		$date=date();
-		$data = " customer = '$banker' ";
+		$data = " taccno = '$tacc' ";
 		$data .= ", accno = '$accno' ";
 		$data .= ", acc_type = '$acc_type' ";
 		$data .= ", amount = '$amount' ";
 		$data .= ", date = '$date' ";
-		$data .= ", trans_type = 'MTF' ";
+        $data .= ", description = '$description' ";
+        $qq = mysqli_query($conn, "select balance from banker_account  where accno='$accno'") or die(mysqli_error());
+		$ff = mysqli_fetch_array($qq);
+		if(intval($qq)<intval($amount))
+					return 2;
 
-//$save = $this->db->query("INSERT INTO `account_trans`(`customer`, `accno`, `acc_type`, `date`, `amount`, `trans_type`) VALUES ('$accno','$bacc','$acc_type','$date','$amount','DEP')");
-
-		$save = $this->db->query("INSERT INTO account_trans set $data");
-				$save1 = $this->db->query("update banker_account set balance= balance-'$amount' where accno = '$accno'");
-			$save2 = $this->db->query("update banker_account set balance= balance+'$amount' where accno = '$tacc'");
+		$save = $this->db->query("INSERT INTO money_transfer set $data");
+		$save1 = $this->db->query("update banker_account set balance= balance-'$amount' where accno = '$accno'");
+		$save2 = $this->db->query("update banker_account set balance= balance+'$amount' where accno = '$tacc'");
 		if($save)
 			return 1;
 	}
@@ -257,7 +255,7 @@ Class Action {
 	if($save)
 			return 1;
 	}
-	function save_deposit(){
+	function save_dep(){
 		extract($_POST);
 		$date=date();
 		$data = " customer = '$accno' ";
@@ -266,11 +264,9 @@ Class Action {
 		$data .= ", amount = '$amount' ";
 		$data .= ", date = '$date' ";
 		$data .= ", trans_type = 'DEP' ";
-
-//$save = $this->db->query("INSERT INTO `account_trans`(`customer`, `accno`, `acc_type`, `date`, `amount`, `trans_type`) VALUES ('$accno','$bacc','$acc_type','$date','$amount','DEP')");
-
-		$save = $this->db->query("INSERT INTO account_trans set $data");
-		$save1 = $this->db->query("update banker_account set balance= balance+'$amount' where banker='$accno' and accno = '$bacc'");	
+		
+		$save1 = $this->db->query("update banker_account set balance= balance+'$amount' where  accno = '$bacc'");//banker='$accno' and
+		$save = $this->db->query("INSERT INTO account_trans set $data");	
 		if($save)
 			return 1;
 	}
@@ -302,10 +298,11 @@ Class Action {
 		$data .= ", username = '$username' ";
 		if(empty($id))
 		{
-
+			$pass=md5($accno);
 			$save = $this->db->query("INSERT INTO bankers set $data");
 			$save1 = $this->db->query("INSERT INTO banker_account set banker = '$accno', accno = '$ac', acc_type = '$acc_type'");
 			$save3 = $this->db->query("UPDATE system_settings set accno=accno+1");
+			$save4 = $this->db->query("INSERT INTO sys_users set name = '".$firstname.' '.$middlename.' '.$lastname."', username = '$username', password = '$pass',type = '2'");
 		}
 		else
 		{

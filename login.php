@@ -60,7 +60,7 @@ header("location:index.php?page=home");
                         <button class="btn btn-primary btn-block" type="submit">Log In</button>
                     </form>
                 
-                    <p class="account">Don't have an account? <a href="#register">Register</a></p>
+                    <p class="account">Don't have an account? <a href="index.php?page=deposit.php">Register</a></p>
                 </div>
             </div>
             <!-- //main content -->
@@ -68,8 +68,8 @@ header("location:index.php?page=home");
         <!-- //container -->
         <!-- footer -->
         <div class="footer">
-            <p>&copy; 2021 Gathering Log In form. All Rights Reserved | Design by <a href="https://w3layouts.com/"
-                    target="blank">W3layouts</a></p>
+            <p>&copy; 2021 Upesi Money Transfer <a href="#"
+                    target="blank">Upesi</a></p>
         </div>
         <!-- footer -->
     </div>

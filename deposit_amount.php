@@ -9,7 +9,9 @@ foreach($qry->fetch_array() as $k => $val){
 ?>
 <div class="container-fluid">
 	<form action="" id="manage-tenant">
+		<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
 		<div class="row form-group">
+
 			<div class="col-md-4">
 				<label for="" class="control-label">First Name</label>
 				<input type="text" class="form-control" name="firstname"  value="<?php echo isset($firstname) ? $firstname :'' ?>" required>
@@ -68,13 +70,14 @@ foreach($qry->fetch_array() as $k => $val){
 		</div>
 	</form>
 </div>
+
 <script>
 	$('#manage-tenant').submit(function(e){
 		e.preventDefault()
 		start_load()
 		$('#msg').html('')
 		$.ajax({
-			url:'ajax.php?action=save_deposit',
+			url:'ajax.php?action=save_dep',
 			data: new FormData($(this)[0]),
 		    cache: false,
 		    contentType: false,

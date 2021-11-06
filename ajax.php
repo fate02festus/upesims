@@ -35,12 +35,16 @@ if($action == "save_withdraw"){
 		echo $save;
 }
 
-if($action == "save_deposit"){
-	$save = $crud->save_deposit();
+if($action == "save_dep"){
+	$save = $crud->save_dep();
 	if($save)
 		echo $save;
 }
-
+if($action == "save_account_type"){
+	$save = $crud->save_account_type();
+	if($save)
+		echo $save;
+}
 if($action == "save_cacc"){
 	$save = $crud->save_cacc();
 	if($save)
