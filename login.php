@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 <?php 
 session_start();
 include('./db_connect.php');
@@ -14,68 +13,114 @@ if(!isset($_SESSION['system'])){
 ob_end_flush();
 ?>
 <head>
-    <title><?php echo isset($_SESSION['system']['name']) ? $_SESSION['system']['name'] : '' ?></title>
-    <!-- Meta tag Keywords -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8" />
-    <!-- //Meta tag Keywords -->
-    <link href="//fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-    <!--/Style-CSS -->
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-    <!--//Style-CSS -->
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title><?php echo $_SESSION['system']['name'] ?></title>
+    
+
 <?php include('./header.php'); ?>
 <?php 
 if(isset($_SESSION['login_id']))
 header("location:index.php?page=home");
 
 ?>
+
 </head>
+<style>
+    body{
+        width: 100%;
+        height: calc(100%);
+        /*background: #007bff;*/
+    }
+    main#main{
+        width:100%;
+        height: calc(100%);
+        background:white;
+    }
+    #login-right{
+        position: absolute;
+        right:0;
+        width:40%;
+        height: calc(100%);
+        background:white;
+        display: flex;
+        align-items: center;
+    }
+    #login-left{
+        position: absolute;
+        left:0;
+        width:60%;
+        height: calc(100%);
+        background:#59b6ec61;
+        display: flex;
+        align-items: center;
+        background: url(assets/uploads/victorias.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #login-right .card{
+        margin: auto;
+        z-index: 1
+    }
+    .logo {
+    margin: auto;
+    font-size: 8rem;
+    background: white;
+    padding: .5em 0.7em;
+    border-radius: 50% 50%;
+    color: #000000b3;
+    z-index: 10;
+}
+div#login-right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100%);
+    height: calc(100%);
+    /*background: #000000e0;*/
+}
+
+</style>
 
 <body>
-    <div class="w3l-signinform">
-        <!-- container -->
-        <div class="wrapper">
-            <!-- main content -->
-            <div class="w3l-form-info">
-                <div class="w3_info">
-                    <h2><?php echo $_SESSION['system']['name'] ?></h2>
-              
-                    <form action="#" id="login-form"  method="post">
-                        <div class="input-group">
-                            <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="text" id="username" placeholder="Email or Username" required="">
+
+
+  <main id="main" class=" bg-light">
+        <div id="login-left" class="bg-dark">
+        </div>
+
+        <div id="login-right" class="bg-light">
+            <div class="w-100">
+            <h4 class="text-blue text-center"><b><?php echo $_SESSION['system']['name'] ?></b></h4>
+            <br>
+            <br>
+            <div class="card col-md-8">
+                <div class="card-body">
+                    <form id="login-form" >
+                        <div class="form-group">
+                            <label for="username" class="control-label">Username</label>
+                            <input type="text" id="username" name="username" class="form-control">
                         </div>
-                        <div class="input-group two-groop">
-                            <span><i class="fa fa-key" aria-hidden="true"></i></span>
-                            <input type="Password"  id="password" placeholder="Password" required="">
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-control">
                         </div>
-                        <div class="form-row bottom">
-                            <div class="form-check">
-                                <input type="checkbox" id="remenber" name="remenber" value="remenber">
-                                <label for="remenber"> Remember me?</label>
-                            </div>
-                            <a href="#url" class="forgot">Forgot password?</a>
-                        </div>
-                        <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                        <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
                     </form>
-                
-                    <p class="account">Don't have an account? <a href="index.php?page=deposit.php">Register</a></p>
                 </div>
             </div>
-            <!-- //main content -->
+            </div>
         </div>
-        <!-- //container -->
-        <!-- footer -->
-        <div class="footer">
-            <p>&copy; 2021 Upesi Money Transfer <a href="#"
-                    target="blank">Upesi</a></p>
-        </div>
-        <!-- footer -->
-    </div>
+   
+
+  </main>
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
 
 </body>
-
 <script>
     $('#login-form').submit(function(e){
         e.preventDefault()

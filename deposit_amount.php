@@ -59,10 +59,7 @@ foreach($qry->fetch_array() as $k => $val){
 			</div>
 		</div>
 		<div class="form-group row">			
-			<div class="col-md-4">
-				<label for="" class="control-label">Bank Balance. #</label>
-				<input type="number" class="form-control" name="balance"  value="<?php echo isset($bank_balance) ? $bank_balance :'' ?>" required>
-			</div>
+			
 			<div class="col-md-4">
 				<label for="" class="control-label">Amount. #</label>
 				<input type="number" class="form-control" name="amount"  required>

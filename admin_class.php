@@ -18,19 +18,19 @@ Class Action {
 	function login(){
 		
 			extract($_POST);		
-			$qry = $this->db->query("SELECT * FROM sys_users ");//where username = '".$username."' and password = '".md5($password)."' 
+			$qry = $this->db->query("SELECT * FROM sys_users where username = '".$username."' and password = '".md5($password)."'");//where username = '".$username."' and password = '".md5($password)."' 
 			if($qry->num_rows > 0){
 				foreach ($qry->fetch_array() as $key => $value) {
 					if($key != 'passwors' && !is_numeric($key))
 						$_SESSION['login_'.$key] = $value;
 				}
-				if($_SESSION['login_type'] != 1){
+				/*if($_SESSION['login_type'] != 1){
 					foreach ($_SESSION as $key => $value) {
 						unset($_SESSION[$key]);
 					}
 					return 2 ;
 					exit;
-				}
+				}*/
 					return 1;
 			}else{
 				return 3;
@@ -55,7 +55,7 @@ Class Action {
 		if($type == 1)
 			$establishment_id = 0;
 		$data .= ", establishment_id = '$establishment_id' ";
-		$chk = $this->db->query("Select * from users where username = '$username' and id !='$id' ")->num_rows;
+		$chk = $this->db->query("Select * from users where username = '$username' and id !='$id' where username = '".$username."' and password = '".md5($password)."' ")->num_rows;
 		if($chk > 0){
 			return 2;
 			exit;
